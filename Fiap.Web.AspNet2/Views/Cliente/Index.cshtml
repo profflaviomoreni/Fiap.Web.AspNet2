@@ -1,7 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Cliente Page";
+    ViewData["Title"] = "Cliente";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Cliente Index - Alt</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <h1>Clientes</h1>
+            <p class="toolbar">
+                <a class="create btn btn-dark" href="/Cliente/Novo">Novo Cliente</a>
+            </p>
+
+            <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                        <th data-field="id">Id</th>
+                        <th data-field="name">Nome</th>
+                        <th class="actions" width="220">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-field="id">#1</td>
+                        <td data-field="name">Flavio</td>
+                        <td class="actions" width="220"> - </td>
+                    </tr>
+                    <tr>
+                        <td data-field="id">#2</td>
+                        <td data-field="name">Eduardo</td>
+                        <td class="actions" width="220"> - </td>
+                    </tr>
+                    <tr>
+                        <td data-field="id">#3</td>
+                        <td data-field="name">Moreni</td>
+                        <td class="actions" width="220"> - </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
 </div>

@@ -9,10 +9,30 @@ namespace Fiap.Web.AspNet2.Controllers
     public class ClienteController : Controller
     {
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Novo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Salvar()
+        {
+            var nome = Request.Form["Nome"];
+            var email = Request.Form["Email"];
+
+            // Insert into ;;; nome e email;
+
+            return View("Sucesso");
+        }
+
+
 
         public IActionResult Help()
         {
