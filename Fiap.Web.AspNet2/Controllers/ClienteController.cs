@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fiap.Web.AspNet2.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fiap.Web.AspNet2.Controllers
 {
@@ -18,19 +16,61 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Novo()
         {
+            //Abrindo a tela para inserir um novo Cliente
             return View();
         }
 
         [HttpPost]
-        public IActionResult Salvar()
+        public IActionResult Novo(ClienteModel clienteModel)
         {
-            var nome = Request.Form["Nome"];
-            var email = Request.Form["Email"];
-
-            // Insert into ;;; nome e email;
-
+            //Capturando os dados de um novo cliente
             return View("Sucesso");
         }
+
+
+        //Abrir a tela de Edição - Consulta
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            ClienteModel clienteModel;
+
+            if (id == 1)
+            {
+                clienteModel = new ClienteModel
+                {
+                    ClienteId = 1,
+                    Nome = "Flavio",
+                    Email = "fmoreni@gmail.com",
+                    DataNascimento = DateTime.Now,
+                    Observacao = "OBS1"
+                };
+            } else if ( id == 2)  {
+                clienteModel = new ClienteModel
+                {
+                    ClienteId = 2,
+                    Nome = "Eduardo",
+                    Email = "eduardo@gmail.com",
+                    DataNascimento = DateTime.Now,
+                    Observacao = "OBS3"
+                };
+            } else if ( id == 3)
+            {
+                clienteModel = new ClienteModel
+                {
+                    ClienteId = 3,
+                    Nome = "Moreni",
+                    Email = "moreni@gmail.com",
+                    DataNascimento = DateTime.Now,
+                    Observacao = "OBS3"
+                };
+            }
+
+
+
+
+            return View();
+        }
+
 
 
 
