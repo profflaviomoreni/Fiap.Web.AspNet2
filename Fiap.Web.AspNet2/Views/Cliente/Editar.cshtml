@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ClienteModel
+
+@{
     ViewData["Title"] = "Cliente - Editar";
 }
 
@@ -8,25 +10,26 @@
             <div class="well">
                 <h2>Cliente - Editar</h2>
 
-                <form action="/Cliente/Novo" method="post">
+                <form action="/Cliente/Editar" method="post">
+                    <input type="hidden" name="ClienteId" value="@Model.ClienteId" />
                     <div class="form-group">
                         <label class="control-label">Nome</label>
-                        <input class="form-control col-5" name="Nome" />
+                        <input class="form-control col-5" name="Nome" value="@Model.Nome" />
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Email</label>
-                        <input class="form-control col-5" name="Email" />
+                        <input class="form-control col-5" name="Email" value="@Model.Email" />
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Data Nascimento</label>
-                        <input class="form-control col-5" name="DataNascimento" />
+                        <input class="form-control col-5" name="DataNascimento" value="@Model.DataNascimento" />
                     </div>
 
                     <div class="form-group">
                         <label class="control-label">Observação</label>
-                        <textarea class="form-control" name="Observacao"></textarea>
+                        <textarea class="form-control" name="Observacao">@Model.Observacao</textarea>
                     </div>
 
                     <a href="#" class="btn btn-default btn-lg">Cancelar</a>
