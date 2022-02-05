@@ -29,7 +29,7 @@
 
                     <div class="form-group">
                         <label class="control-label" asp-for="DataNascimento"></label>
-                        <input class="form-control col-5" type="text" value="@Model.DataNascimento" />
+                        <input class="form-control col-5" asp-for="DataNascimento" />
                         <span class="text-danger" asp-validation-for="DataNascimento"></span>
                     </div>
 

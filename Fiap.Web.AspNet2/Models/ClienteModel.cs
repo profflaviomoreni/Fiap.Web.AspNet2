@@ -22,7 +22,7 @@ namespace Fiap.Web.AspNet2.Models
         public String Email { get; set; }
 
         [Required(ErrorMessage = "Data de nascimento requerida")]
-        [DataType(DataType.DateTime, ErrorMessage = "Data de nascimento inválida")]
+        [DataType(DataType.Date, ErrorMessage = "Data de nascimento inválida")]
         [Display(Name = "Data de Nascimento")]
         public DateTime? DataNascimento { get; set; }
 

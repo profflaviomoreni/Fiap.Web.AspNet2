@@ -1,0 +1,19 @@
+﻿@model ClienteModel
+
+<tr>
+    <td data-field="id">#@Model.ClienteId</td>
+    <td data-field="name">@Model.Nome</td>
+    <td class="actions" width="220">
+        <a asp-controller="Cliente"
+           asp-action="Detalhe"
+           asp-route-id="@Model.ClienteId"
+           class="btn btn-info btn-sm">Detalhe</a>
+
+        <a asp-controller="Cliente"
+           asp-action="Editar"
+           asp-route-id="@Model.ClienteId"
+           class="btn btn-warning btn-sm">Editar</a>
+
+    </td>
+</tr>
+

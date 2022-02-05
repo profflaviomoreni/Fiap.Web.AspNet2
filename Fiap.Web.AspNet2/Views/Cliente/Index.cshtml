@@ -37,14 +37,7 @@
 
                     @foreach (var cliente in Model)
                     {
-                        <tr>
-                            <td data-field="id">@cliente.ClienteId</td>
-                            <td data-field="name">@cliente.Nome</td>
-                            <td class="actions" width="220">
-                                <a href="/Cliente/Detalhe/@cliente.ClienteId" class="btn btn-info btn-sm">Detalhe</a>
-                                <a href="/Cliente/Editar/@cliente.ClienteId" class="btn btn-warning btn-sm">Editar</a>
-                            </td>
-                        </tr>
+                        <partial name="_ClienteItem" model="cliente" />
                     }
 
                 </tbody>
