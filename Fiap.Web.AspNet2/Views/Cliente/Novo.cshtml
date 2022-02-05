@@ -14,34 +14,53 @@
                     <div asp-validation-summary="All" class="alert alert-warning" role="alert"></div>
                 }
 
-                <form asp-controller="Cliente" asp-action="Novo"  method="post">
-                    <div class="form-group">
-                        <label class="control-label" asp-for="Nome"></label>
-                        <input class="form-control col-5" asp-for="Nome" />
-                        <span class="text-danger" asp-validation-for="Nome"></span>
-                    </div>
+            <form asp-controller="Cliente" asp-action="Novo" method="post">
+                <div class="form-group">
+                    <label class="control-label" asp-for="Nome"></label>
+                    <input class="form-control col-5" asp-for="Nome" />
+                    <span class="text-danger" asp-validation-for="Nome"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label class="control-label" asp-for="Email"></label>
-                        <input class="form-control col-5" asp-for="Email" />
-                        <span class="text-danger" asp-validation-for="Email"></span>
-                    </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="Email"></label>
+                    <input class="form-control col-5" asp-for="Email" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label class="control-label" asp-for="DataNascimento"></label>
-                        <input class="form-control col-5" asp-for="DataNascimento" />
-                        <span class="text-danger" asp-validation-for="DataNascimento"></span>
-                    </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="DataNascimento"></label>
+                    <input class="form-control col-5" asp-for="DataNascimento" />
+                    <span class="text-danger" asp-validation-for="DataNascimento"></span>
+                </div>
 
-                    <div class="form-group">
-                        <label class="control-label" asp-for="Observacao"></label>
-                        <textarea class="form-control col-5" asp-for="Observacao"></textarea>
-                        <span class="text-danger" asp-validation-for="Observacao"></span>
-                    </div>
+                <div class="form-group">
+                    <label class="control-label" asp-for="Observacao"></label>
+                    <textarea class="form-control col-5" asp-for="Observacao"></textarea>
+                    <span class="text-danger" asp-validation-for="Observacao"></span>
+                </div>
 
-                    <a href="#" class="btn btn-default btn-lg">Cancelar</a>
-                    <button type="submit" class="btn btn-primary btn-lg">Gravar</button>
-                </form>
+
+                <div class="form-group">
+                    <label class="control-label" asp-for="RepresentanteId"></label>
+                    <select name="RepresentanteId">
+                        <option value="">Selecione</option>
+                        @foreach (var representante in ViewBag.representantes)
+                        {
+                            if ( Model.RepresentanteId == representante.RepresentanteId)
+                            {
+                                <option selected value="@representante.RepresentanteId">@representante.NomeRepresentante</option>
+                            } else { 
+                                <option value="@representante.RepresentanteId">@representante.NomeRepresentante</option>
+                            }
+                        }
+                    </select>
+                    <span class="text-danger" asp-validation-for="RepresentanteId"></span>
+                </div>
+
+
+                <a href="#" class="btn btn-default btn-lg">Cancelar</a>
+                <button type="submit" class="btn btn-primary btn-lg">Gravar</button>
+            </form>
             </div>
         </div>
     </div>

@@ -1,5 +1,7 @@
 ﻿using Fiap.Web.AspNet2.Models;
+using Fiap.Web.AspNet2.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 
@@ -78,8 +80,10 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Novo()
         {
-            //Abrindo a tela para inserir um novo Cliente
-            return View();
+            var listaRepresentantes = new RepresentanteRepository().FindAll();
+            ViewBag.representantes = listaRepresentantes;
+
+            return View( new ClienteModel() );
         }
 
         [HttpPost]
@@ -88,16 +92,15 @@ namespace Fiap.Web.AspNet2.Controllers
 
             if ( ModelState.IsValid )
             {
-                //clienteRepo.save(clienteModel);
-
-                //Capturando os dados de um novo cliente
-
-                //ViewBag.Mensagem = "Cliente " + clienteModel.Nome + " inserido com suceso";
                 TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} inserido com sucesso";
-
                 return RedirectToAction("Index");
+
             } else
             {
+
+                var listaRepresentantes = new RepresentanteRepository().FindAll();
+                ViewBag.representantes = listaRepresentantes;
+
                 return View(clienteModel);
             }
 
@@ -108,42 +111,24 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ClienteModel clienteModel = new ClienteModel();
+            ClienteModel clienteModel = new ClienteModel
+            {
+                ClienteId = 1,
+                Nome = "Flavio",
+                Email = "fmoreni@gmail.com",
+                DataNascimento = DateTime.Now,
+                Observacao = "OBS1",
+                RepresentanteId = 2
+            };
 
-            if (id == 1)
-            {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 1,
-                    Nome = "Flavio",
-                    Email = "fmoreni@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS1"
-                };
-            } else if ( id == 2)  {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 2,
-                    Nome = "Eduardo",
-                    Email = "eduardo@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS3"
-                };
-            } else if ( id == 3)
-            {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 3,
-                    Nome = "Moreni",
-                    Email = "moreni@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS3"
-                };
-            }
+            var listaRepresentantes = new RepresentanteRepository().FindAll();
+            ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
 
             return View(clienteModel);
         }
 
+
+        
 
         [HttpPost]
         public IActionResult Editar(ClienteModel clienteModel)
@@ -156,6 +141,9 @@ namespace Fiap.Web.AspNet2.Controllers
             }
             else
             {
+                var listaRepresentantes = new RepresentanteRepository().FindAll();
+                ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+
                 return View(clienteModel);
             }
 

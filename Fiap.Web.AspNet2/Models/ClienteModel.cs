@@ -24,11 +24,19 @@ namespace Fiap.Web.AspNet2.Models
         [Required(ErrorMessage = "Data de nascimento requerida")]
         [DataType(DataType.Date, ErrorMessage = "Data de nascimento inválida")]
         [Display(Name = "Data de Nascimento")]
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DataNascimento { get; set; }
 
         [Display(Name = "Observação")]
         [DataType(DataType.MultilineText)]
         public String  Observacao { get; set; }
+
+
+
+        public int RepresentanteId { get; set; }
+        public RepresentanteModel Representante { get; set; }
+
+
 
     }
 }
