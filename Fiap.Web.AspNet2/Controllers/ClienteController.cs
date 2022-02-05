@@ -8,12 +8,12 @@ namespace Fiap.Web.AspNet2.Controllers
     public class ClienteController : Controller
     {
 
+        public List<ClienteModel> listaClientes { get; set; }
 
 
-        [HttpGet]
-        public IActionResult Index()
+        public ClienteController()
         {
-            var listaClientes = new List<ClienteModel>();
+            listaClientes = new List<ClienteModel>();
             listaClientes.Add(new ClienteModel
             {
                 ClienteId = 1,
@@ -62,6 +62,15 @@ namespace Fiap.Web.AspNet2.Controllers
                 DataNascimento = DateTime.Now,
                 Observacao = "OBS3"
             });
+        }
+
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            //listaClientes = clienteRepository.findall();
+
+            //ViewBag.Mensagem = "Último acesso foi em 01/01/2000";
 
             return View(listaClientes);
         }
@@ -76,8 +85,24 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpPost]
         public IActionResult Novo(ClienteModel clienteModel)
         {
-            //Capturando os dados de um novo cliente
-            return View("Sucesso");
+
+            if ( ModelState.IsValid )
+            {
+                //clienteRepo.save(clienteModel);
+
+                //Capturando os dados de um novo cliente
+
+                //ViewBag.Mensagem = "Cliente " + clienteModel.Nome + " inserido com suceso";
+                TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} inserido com sucesso";
+
+                return RedirectToAction("Index");
+            } else
+            {
+                return View(clienteModel);
+            }
+
+
+            
         }
 
 
@@ -126,7 +151,10 @@ namespace Fiap.Web.AspNet2.Controllers
         public IActionResult Editar(ClienteModel clienteModel)
         {
             //Capturando os dados de um cliente alterado 
-            return View("Sucesso");
+
+            TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} alterado com sucesso";
+
+            return RedirectToAction("Index");
         }
 
 

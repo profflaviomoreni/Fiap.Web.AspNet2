@@ -15,6 +15,16 @@
                 <a class="create btn btn-dark" href="/Cliente/Novo">Novo Cliente</a>
             </p>
 
+            @{ 
+                String msg = (String)TempData["MensagemSucesso"];
+                if (!String.IsNullOrEmpty(msg)) {
+                <div class="alert alert-warning" role="alert">
+                    <h4>@msg</h4>
+                </div>
+                }
+            }
+            
+
             <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
@@ -25,15 +35,16 @@
                 </thead>
                 <tbody>
 
-                    @foreach ( var cliente in Model ) {
-                    <tr>
-                        <td data-field="id">@cliente.ClienteId</td>
-                        <td data-field="name">@cliente.Nome</td>
-                        <td class="actions" width="220">
-                            <a href="/Cliente/Detalhe/@cliente.ClienteId" class="btn btn-info btn-sm">Detalhe</a>
-                            <a href="/Cliente/Editar/@cliente.ClienteId" class="btn btn-warning btn-sm">Editar</a>
-                        </td>
-                    </tr>
+                    @foreach (var cliente in Model)
+                    {
+                        <tr>
+                            <td data-field="id">@cliente.ClienteId</td>
+                            <td data-field="name">@cliente.Nome</td>
+                            <td class="actions" width="220">
+                                <a href="/Cliente/Detalhe/@cliente.ClienteId" class="btn btn-info btn-sm">Detalhe</a>
+                                <a href="/Cliente/Editar/@cliente.ClienteId" class="btn btn-warning btn-sm">Editar</a>
+                            </td>
+                        </tr>
                     }
 
                 </tbody>
