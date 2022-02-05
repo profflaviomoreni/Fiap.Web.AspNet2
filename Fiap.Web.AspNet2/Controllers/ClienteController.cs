@@ -154,41 +154,17 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Detalhe(int id)
         {
-            ClienteModel clienteModel = new ClienteModel();
-
-            if (id == 1)
+            ClienteModel clienteModel = new ClienteModel
             {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 1,
-                    Nome = "Flavio",
-                    Email = "fmoreni@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS1"
-                };
-            }
-            else if (id == 2)
-            {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 2,
-                    Nome = "Eduardo",
-                    Email = "eduardo@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS3"
-                };
-            }
-            else if (id == 3)
-            {
-                clienteModel = new ClienteModel
-                {
-                    ClienteId = 3,
-                    Nome = "Moreni",
-                    Email = "moreni@gmail.com",
-                    DataNascimento = DateTime.Now,
-                    Observacao = "OBS3"
-                };
-            }
+                ClienteId = 1,
+                Nome = "Flavio",
+                Email = "fmoreni@gmail.com",
+                DataNascimento = DateTime.Now,
+                Observacao = "OBS1",
+                RepresentanteId = 1,
+                Representante = new RepresentanteModel(1,"Repre 1")
+            };
+            
 
             return View(clienteModel);
         }
