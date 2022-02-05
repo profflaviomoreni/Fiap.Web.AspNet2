@@ -101,8 +101,6 @@ namespace Fiap.Web.AspNet2.Controllers
                 return View(clienteModel);
             }
 
-
-            
         }
 
 
@@ -150,11 +148,17 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpPost]
         public IActionResult Editar(ClienteModel clienteModel)
         {
-            //Capturando os dados de um cliente alterado 
 
-            TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} alterado com sucesso";
+            if (ModelState.IsValid)
+            {
+                TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} alterado com sucesso";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(clienteModel);
+            }
 
-            return RedirectToAction("Index");
         }
 
 

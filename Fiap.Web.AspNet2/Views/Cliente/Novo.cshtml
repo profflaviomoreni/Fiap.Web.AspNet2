@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ClienteModel
+
+@{
     ViewData["Title"] = "Cliente - Novo";
 }
 
@@ -8,25 +10,33 @@
             <div class="well">
                 <h2>Cliente - Novo</h2>
 
-                <form action="/Cliente/Novo" method="post">
+                @if( ! ViewData.ModelState.IsValid) { 
+                    <div asp-validation-summary="All" class="alert alert-warning" role="alert"></div>
+                }
+
+                <form asp-controller="Cliente" asp-action="Novo"  method="post">
                     <div class="form-group">
-                        <label class="control-label">Nome</label>
-                        <input class="form-control col-5" name="Nome" />
+                        <label class="control-label" asp-for="Nome"></label>
+                        <input class="form-control col-5" asp-for="Nome" />
+                        <span class="text-danger" asp-validation-for="Nome"></span>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Email</label>
-                        <input class="form-control col-5" name="Email" />
+                        <label class="control-label" asp-for="Email"></label>
+                        <input class="form-control col-5" asp-for="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Data Nascimento</label>
-                        <input class="form-control col-5" name="DataNascimento" />
+                        <label class="control-label" asp-for="DataNascimento"></label>
+                        <input class="form-control col-5" type="text" value="@Model.DataNascimento" />
+                        <span class="text-danger" asp-validation-for="DataNascimento"></span>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Observação</label>
-                        <textarea class="form-control" name="Observacao"></textarea>
+                        <label class="control-label" asp-for="Observacao"></label>
+                        <textarea class="form-control col-5" asp-for="Observacao"></textarea>
+                        <span class="text-danger" asp-validation-for="Observacao"></span>
                     </div>
 
                     <a href="#" class="btn btn-default btn-lg">Cancelar</a>
