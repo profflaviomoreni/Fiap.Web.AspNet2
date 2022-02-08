@@ -29,6 +29,7 @@ namespace Fiap.Web.AspNet2.Models
         [Required]
         [MaxLength(70)]
         [MinLength(2)]
+        [Display(Name = "Nome do Representante")]
         public String NomeRepresentante { get; set; }
 
         [NotMapped]
