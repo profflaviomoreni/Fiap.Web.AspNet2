@@ -1,12 +1,11 @@
+using Fiap.Web.AspNet2.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Fiap.Web.AspNet2
 {
@@ -23,6 +22,14 @@ namespace Fiap.Web.AspNet2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            var connectionString = Configuration.GetConnectionString("databaseUrl");
+            services.AddDbContext<DataContext>( options => 
+                options.UseSqlServer(connectionString)
+                        .EnableSensitiveDataLogging()
+                        
+                 );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

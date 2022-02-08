@@ -1,7 +1,10 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fiap.Web.AspNet2.Models
 {
+    [Table("Representante")]
     public class RepresentanteModel
     {
 
@@ -17,9 +20,19 @@ namespace Fiap.Web.AspNet2.Models
         }
 
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Column("RepresentanteId")]
         public int RepresentanteId { get; set; }
 
+        [Column("NomeRepresentante")]
+        [Required]
+        [MaxLength(70)]
+        [MinLength(2)]
         public String NomeRepresentante { get; set; }
+
+        [NotMapped]
+        public String Token { get; set; }
 
     }
 }
