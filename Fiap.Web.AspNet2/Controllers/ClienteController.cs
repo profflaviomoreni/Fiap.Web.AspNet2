@@ -1,4 +1,5 @@
-﻿using Fiap.Web.AspNet2.Models;
+﻿using Fiap.Web.AspNet2.Data;
+using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,9 +13,13 @@ namespace Fiap.Web.AspNet2.Controllers
 
         public List<ClienteModel> listaClientes { get; set; }
 
+        private readonly DataContext _context;
 
-        public ClienteController()
+        public ClienteController(DataContext dataContext)
         {
+            _context = dataContext;
+
+
             listaClientes = new List<ClienteModel>();
             listaClientes.Add(new ClienteModel
             {
@@ -80,7 +85,7 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Novo()
         {
-            var listaRepresentantes = new RepresentanteRepository().FindAll();
+            var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
             ViewBag.representantes = listaRepresentantes;
 
             return View( new ClienteModel() );
@@ -98,7 +103,7 @@ namespace Fiap.Web.AspNet2.Controllers
             } else
             {
 
-                var listaRepresentantes = new RepresentanteRepository().FindAll();
+                var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
                 ViewBag.representantes = listaRepresentantes;
 
                 return View(clienteModel);
@@ -121,7 +126,7 @@ namespace Fiap.Web.AspNet2.Controllers
                 RepresentanteId = 2
             };
 
-            var listaRepresentantes = new RepresentanteRepository().FindAll();
+            var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
             ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
 
             return View(clienteModel);
@@ -141,7 +146,7 @@ namespace Fiap.Web.AspNet2.Controllers
             }
             else
             {
-                var listaRepresentantes = new RepresentanteRepository().FindAll();
+                var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
                 ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
 
                 return View(clienteModel);

@@ -16,6 +16,8 @@ namespace Fiap.Web.AspNet2.Data
 
         public DbSet<RepresentanteModel> Representantes { get; set; }
 
+        public DbSet<ClienteModel> Clientes { get; set; }
+
 
     }
 }

@@ -1,29 +1,55 @@
-﻿using Fiap.Web.AspNet2.Models;
+﻿using Fiap.Web.AspNet2.Data;
+using Fiap.Web.AspNet2.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Fiap.Web.AspNet2.Repository
 {
     public class RepresentanteRepository
     {
-        private List<RepresentanteModel> representantes;
 
-        public RepresentanteRepository()
+        public DataContext _context { get; set; }
+
+        public RepresentanteRepository(DataContext context)
         {
-            representantes = new List<RepresentanteModel>();
-            representantes.Add(new RepresentanteModel(1, "Repre 1"));
-            representantes.Add(new RepresentanteModel(2, "Repre 2"));
-            representantes.Add(new RepresentanteModel(3, "Repre 3"));
-            representantes.Add(new RepresentanteModel(4, "Repre 4"));
-            representantes.Add(new RepresentanteModel(5, "Repre 5"));
-            representantes.Add(new RepresentanteModel(6, "Repre 6"));
+            _context = context;
         }
 
 
         public List<RepresentanteModel> FindAll()
         {
-            
-            return representantes;
+            return _context.Representantes.ToList<RepresentanteModel>(); ;
         }
+
+        public RepresentanteModel FindById(int id) {
+            return _context.Representantes.Find(id);
+        }
+
+        public void Insert(RepresentanteModel representanteModel)
+        {
+            _context.Representantes.Add(representanteModel);
+            _context.SaveChanges();
+        }
+
+        public void Update(RepresentanteModel representanteModel)
+        {
+            _context.Representantes.Update(representanteModel);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            RepresentanteModel representanteModel = new RepresentanteModel(id, "");
+            Delete(representanteModel);
+        }
+
+
+        public void Delete(RepresentanteModel representanteModel)
+        {
+            _context.Representantes.Remove(representanteModel);
+            _context.SaveChanges();
+        }
+
 
     }
 }

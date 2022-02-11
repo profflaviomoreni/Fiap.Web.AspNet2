@@ -1,42 +1,71 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Fiap.Web.AspNet2.Models
 {
+
+    [Table("Cliente")]
     public class ClienteModel
     {
-        [HiddenInput]
+
+        public ClienteModel() { }
+
+        public ClienteModel(int clienteId, String nome, String email)
+        {
+            this.ClienteId = clienteId;
+            this.Nome = nome;
+            this.Email = email;
+        }
+
+        public ClienteModel(int clienteId, String nome, String email, DateTime dataNacimento, String observacao)
+        {
+            this.ClienteId = clienteId;
+            this.Nome = nome;
+            this.Email = email;
+            this.DataNascimento = dataNacimento;
+            this.Observacao = observacao;
+        }
+
+        public ClienteModel(int clienteId, string nome, string email, DateTime dataNascimento, string observacao, int representanteId) : this(clienteId, nome, email, dataNascimento, observacao)
+        {
+            RepresentanteId = representanteId;
+        }
+
+        public ClienteModel(int clienteId, string nome, string email, DateTime dataNascimento, string observacao, int representanteId, RepresentanteModel representante) : this(clienteId, nome, email, dataNascimento, observacao, representanteId)
+        {
+            Representante = representante;
+        }
+
+
         [Display(Name = "Id do Cliente")]
+        [HiddenInput]
+        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ClienteId { get; set; }
 
         [Display(Name = "Nome do Cliente")]
-        [Required(ErrorMessage = "Nome do cliente requerido")]
-        [MaxLength(70, ErrorMessage = "O tamanho máximo é 70 caracteres para o Nome!")]
-        [MinLength(2, ErrorMessage = "Digite um nome com mais de dois caracteres")]
         public String Nome { get; set; }
 
-        [Required(ErrorMessage = "Digite o campo email")]
-        [EmailAddress(ErrorMessage = "Digite corretamente o email")]
-        [Display(Name = "e-Mail")]
+        [Display(Name = "E-mail do Cliente")]
+        [EmailAddress]
+        [Required]
         public String Email { get; set; }
 
-        [Required(ErrorMessage = "Data de nascimento requerida")]
-        [DataType(DataType.Date, ErrorMessage = "Data de nascimento inválida")]
         [Display(Name = "Data de Nascimento")]
-        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? DataNascimento { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DataNascimento { get; set; }
 
         [Display(Name = "Observação")]
         [DataType(DataType.MultilineText)]
-        public String  Observacao { get; set; }
-
+        public String Observacao { get; set; }
 
 
         public int RepresentanteId { get; set; }
+        [ForeignKey("RepresentanteId")]
         public RepresentanteModel Representante { get; set; }
-
-
 
     }
 }

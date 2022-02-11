@@ -1,5 +1,6 @@
 ﻿using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Models;
+using Fiap.Web.AspNet2.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -11,21 +12,24 @@ namespace Fiap.Web.AspNet2.Controllers
     {
         private readonly DataContext _context;
 
+        private readonly RepresentanteRepository repository;
+
         public RepresentanteController(DataContext context)
         {
             _context = context;
+            repository = new RepresentanteRepository(_context);
         }
 
         public IActionResult Index()
         {
-            var listaRepresentantes = _context.Representantes.ToList<RepresentanteModel>();
+            var listaRepresentantes = repository.FindAll();
             return View(listaRepresentantes);
         }
 
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
-            var representanteModel =  _context.Representantes.Find(id);
+            var representanteModel =  repository.FindById(id);
             
             if (representanteModel == null)
             {
@@ -46,22 +50,23 @@ namespace Fiap.Web.AspNet2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(representanteModel);
-                _context.SaveChanges();
+                repository.Insert(representanteModel);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(representanteModel);
         }
 
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var representanteModel = _context.Representantes.Find(id);
+            var representanteModel = repository.FindById(id);
+
             if (representanteModel == null)
             {
                 return NotFound();
@@ -80,35 +85,21 @@ namespace Fiap.Web.AspNet2.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(representanteModel);
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RepresentanteModelExists(representanteModel.RepresentanteId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+               repository.Update(representanteModel);
+               return RedirectToAction(nameof(Index));
+
             }
             return View(representanteModel);
         }
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var representanteModel = _context.Representantes.FirstOrDefault(m => m.RepresentanteId == id);
+            var representanteModel = repository.FindById(id);
             if (representanteModel == null)
             {
                 return NotFound();
@@ -121,16 +112,13 @@ namespace Fiap.Web.AspNet2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var representanteModel =  _context.Representantes.Find(id);
-            _context.Representantes.Remove(representanteModel);
-            _context.SaveChanges();
+
+            repository.Delete(id);
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RepresentanteModelExists(int id)
-        {
-            return _context.Representantes.Any(e => e.RepresentanteId == id);
-        }
+        
         
     }
 }
