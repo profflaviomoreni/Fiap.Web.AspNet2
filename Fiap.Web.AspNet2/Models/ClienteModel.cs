@@ -64,6 +64,7 @@ namespace Fiap.Web.AspNet2.Models
 
 
         public int RepresentanteId { get; set; }
+        
         [ForeignKey("RepresentanteId")]
         public RepresentanteModel Representante { get; set; }
 

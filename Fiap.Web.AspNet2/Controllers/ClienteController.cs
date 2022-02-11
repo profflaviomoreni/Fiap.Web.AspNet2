@@ -11,81 +11,27 @@ namespace Fiap.Web.AspNet2.Controllers
     public class ClienteController : Controller
     {
 
-        public List<ClienteModel> listaClientes { get; set; }
-
-        private readonly DataContext _context;
+        private readonly RepresentanteRepository representanteRepository;
+        private readonly ClienteRepository clienteRepository;
 
         public ClienteController(DataContext dataContext)
         {
-            _context = dataContext;
-
-
-            listaClientes = new List<ClienteModel>();
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 1,
-                Nome = "Flavio",
-                Email = "fmoreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS1"
-            });
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 2,
-                Nome = "Eduardo",
-                Email = "eduardo@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS3"
-            });
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 3,
-                Nome = "Moreni",
-                Email = "moreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS3"
-            });
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 3,
-                Nome = "Moreni",
-                Email = "moreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS3"
-            });
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 3,
-                Nome = "Moreni",
-                Email = "moreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS3"
-            });
-            listaClientes.Add(new ClienteModel
-            {
-                ClienteId = 3,
-                Nome = "Moreni",
-                Email = "moreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS3"
-            });
+            representanteRepository = new RepresentanteRepository(dataContext);
+            clienteRepository = new ClienteRepository(dataContext);            
         }
 
 
         [HttpGet]
         public IActionResult Index()
         {
-            //listaClientes = clienteRepository.findall();
-
-            //ViewBag.Mensagem = "Último acesso foi em 01/01/2000";
-
+            var listaClientes = clienteRepository.FindAll();
             return View(listaClientes);
         }
 
         [HttpGet]
         public IActionResult Novo()
         {
-            var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
+            var listaRepresentantes = representanteRepository.FindAll();
             ViewBag.representantes = listaRepresentantes;
 
             return View( new ClienteModel() );
@@ -97,37 +43,28 @@ namespace Fiap.Web.AspNet2.Controllers
 
             if ( ModelState.IsValid )
             {
+                clienteRepository.Insert(clienteModel);
+
                 TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} inserido com sucesso";
                 return RedirectToAction("Index");
 
             } else
             {
-
-                var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
-                ViewBag.representantes = listaRepresentantes;
-
+                ViewBag.representantes = representanteRepository.FindAll();
                 return View(clienteModel);
             }
 
         }
 
 
-        //Abrir a tela de Edição - Consulta
         [HttpGet]
         public IActionResult Editar(int id)
         {
-            ClienteModel clienteModel = new ClienteModel
-            {
-                ClienteId = 1,
-                Nome = "Flavio",
-                Email = "fmoreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS1",
-                RepresentanteId = 2
-            };
 
-            var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
-            ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+            ClienteModel clienteModel = clienteRepository.FindById(id);
+
+            IList<RepresentanteModel> representantes = representanteRepository.FindAll();
+            ViewBag.representantes = new SelectList(representantes, "RepresentanteId", "NomeRepresentante");
 
             return View(clienteModel);
         }
@@ -141,13 +78,16 @@ namespace Fiap.Web.AspNet2.Controllers
 
             if (ModelState.IsValid)
             {
+
+                clienteRepository.Update(clienteModel);
+
                 TempData["MensagemSucesso"] = $"Cliente {clienteModel.Nome} alterado com sucesso";
                 return RedirectToAction("Index");
             }
             else
             {
-                var listaRepresentantes = new RepresentanteRepository(_context).FindAll();
-                ViewBag.representantes = new SelectList(listaRepresentantes, "RepresentanteId", "NomeRepresentante");
+                IList<RepresentanteModel> representantes = representanteRepository.FindAll();
+                ViewBag.representantes = new SelectList(representantes, "RepresentanteId", "NomeRepresentante");
 
                 return View(clienteModel);
             }
@@ -159,18 +99,7 @@ namespace Fiap.Web.AspNet2.Controllers
         [HttpGet]
         public IActionResult Detalhe(int id)
         {
-            ClienteModel clienteModel = new ClienteModel
-            {
-                ClienteId = 1,
-                Nome = "Flavio",
-                Email = "fmoreni@gmail.com",
-                DataNascimento = DateTime.Now,
-                Observacao = "OBS1",
-                RepresentanteId = 1,
-                Representante = new RepresentanteModel(1,"Repre 1")
-            };
-            
-
+            ClienteModel clienteModel = clienteRepository.FindById(id);
             return View(clienteModel);
         }
 
