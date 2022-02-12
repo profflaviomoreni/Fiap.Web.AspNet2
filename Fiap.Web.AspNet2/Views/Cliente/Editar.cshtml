@@ -16,6 +16,7 @@
                 }
 
             <form asp-controller="Cliente" asp-action="Editar" method="post">
+                <input asp-for="ClienteId" />
                 <div class="form-group">
                     <label class="control-label" asp-for="Nome"></label>
                     <input class="form-control col-5" asp-for="Nome" />
