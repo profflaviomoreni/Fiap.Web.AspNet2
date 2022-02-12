@@ -1,29 +1,49 @@
 ﻿@model Fiap.Web.AspNet2.Models.RepresentanteModel
 
-<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Representante - Detalhes";
+}
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="well">
+                <h2>Representante - Detalhes</h2>
 
-<div>
-    <h4>RepresentanteModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NomeRepresentante)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NomeRepresentante)
-        </dd>
-    </dl>
+                <div class="form-group">
+                    <label class="control-label" asp-for="RepresentanteId"></label>
+                    <label class="col-form-label-lg">@Model.RepresentanteId</label>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" asp-for="NomeRepresentante"></label>
+                    <label class="col-form-label-lg">@Model.NomeRepresentante</label>
+                </div>
+
+                @if (Model.Clientes.Count > 0)
+                {
+                    <h3>Clientes:</h3>
+                    <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Id</th>
+                                <th data-field="name">Nome</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var cliente in Model.Clientes)
+                            {
+                            <tr>
+                                <td data-field="id">#@cliente.ClienteId</td>
+                                <td data-field="name">@cliente.Nome</td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.RepresentanteId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-</body>
-</html>

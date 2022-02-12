@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ namespace Fiap.Web.AspNet2.Models
             NomeRepresentante = nomeRepresentante;
         }
 
-
+        [Display(Name = "Id do Representante")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("RepresentanteId")]
@@ -31,6 +32,10 @@ namespace Fiap.Web.AspNet2.Models
         [MinLength(2)]
         [Display(Name = "Nome do Representante")]
         public String NomeRepresentante { get; set; }
+
+
+        //Navigator Property
+        public ICollection<ClienteModel> Clientes { get; set; } 
 
         [NotMapped]
         public String Token { get; set; }

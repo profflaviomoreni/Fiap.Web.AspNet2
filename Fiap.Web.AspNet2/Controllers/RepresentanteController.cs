@@ -29,8 +29,9 @@ namespace Fiap.Web.AspNet2.Controllers
 
         public IActionResult Details(int id)
         {
-            var representanteModel =  repository.FindById(id);
-            
+            //var representanteModel =  repository.FindById(id);
+            var representanteModel = repository.FindByIdWithClientes(id);
+
             if (representanteModel == null)
             {
                 return NotFound();
