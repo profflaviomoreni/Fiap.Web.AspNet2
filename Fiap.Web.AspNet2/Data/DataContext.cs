@@ -24,6 +24,36 @@ namespace Fiap.Web.AspNet2.Data
 
         public DbSet<ProdutoLojaModel> ProdutosLojas { get; set; }
 
+        public DbSet<PaisModel> Paises { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<PaisModel>()
+                .ToTable("Pais")
+                .HasKey(p => p.PaisId);
+
+            modelBuilder.Entity<PaisModel>()
+                .Property(p => p.PaisId).ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<PaisModel>()
+                .Property(p => p.NomePais)
+                    .HasMaxLength(30)
+                    .IsRequired();
+
+            modelBuilder.Entity<PaisModel>()
+                .HasIndex(p => p.NomePais);
+
+
+
+            modelBuilder.Entity<PaisModel>().HasData(
+                new PaisModel(1,"Brasil","America do Sul"),
+                new PaisModel(2,"Alemanha","Europa")
+            );
+
+            base.OnModelCreating(modelBuilder);
+        }
 
     }
 }
