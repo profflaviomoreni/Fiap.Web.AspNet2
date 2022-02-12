@@ -18,6 +18,12 @@ namespace Fiap.Web.AspNet2.Data
 
         public DbSet<ClienteModel> Clientes { get; set; }
 
+        public DbSet<LojaModel> Lojas { get; set; }
+
+        public DbSet<ProdutoModel> Produtos { get; set; }
+
+        public DbSet<ProdutoLojaModel> ProdutosLojas { get; set; }
+
 
     }
 }
