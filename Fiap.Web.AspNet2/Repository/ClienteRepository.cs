@@ -18,11 +18,89 @@ namespace Fiap.Web.AspNet2.Repository
 
         public List<ClienteModel> FindAll()
         {
-            //return _context.Clientes.ToList<ClienteModel>();
-            var lista = _context.Clientes.Include(c => c.Representante).ToList();
-
-            return lista;
+            return _context.Clientes.ToList<ClienteModel>();
         }
+
+
+        public List<ClienteModel> FindAllWithRepresentante()
+        {
+            var lista = _context.Clientes.Include(c => c.Representante).ToList();
+            return lista;
+
+        }
+
+        public List<ClienteModel> FindAllOrderByNomeAsc()
+        {
+            return _context.Clientes.OrderBy( c => c.Nome ).ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindAllOrderByNomeDesc()
+        {
+            return _context.Clientes.OrderByDescending(c => c.Nome).ToList<ClienteModel>();
+        }
+
+        public List<ClienteModel> FindByNome(string nome)
+        {
+            return _context.Clientes
+                .Where(c => c.Nome.Contains(nome) )
+                    .OrderByDescending(c => c.Nome)
+                        .ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindByEmail(string email)
+        {
+            return _context.Clientes
+                .Where(c => c.Email.StartsWith(email))
+                    .OrderByDescending(c => c.Nome)
+                        .ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindByNomeAndEmail(string nome, string email)
+        {
+            return _context.Clientes
+                .Where(c => c.Nome.Contains(nome) && c.Email.Contains(email) )
+                    .OrderByDescending(c => c.Nome)
+                        .ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindByNomeAndEmailDinamico(string nome, string email)
+        {
+            return _context.Clientes
+                .Where(c => c.Nome.Contains(nome) && c.Email.Contains(email))
+                    .OrderByDescending(c => c.Nome)
+                        .ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindByNomeAndEmailAndRepresentante(string nome, string email, int? idRepresentante)
+        {
+            return _context.Clientes
+                .Where(c => c.Nome.Contains(nome) && 
+                            c.Email.Contains(email) && 
+                            (0 == idRepresentante || c.RepresentanteId == idRepresentante) 
+                       )
+                        .OrderByDescending(c => c.Nome)
+                            .ToList<ClienteModel>();
+        }
+
+
+        public List<ClienteModel> FindByRepresentante(int idRepresentante)
+        {
+            return _context.Clientes
+                .Where(c => c.RepresentanteId == idRepresentante)
+                    .OrderByDescending(c => c.Nome)
+                        .ToList<ClienteModel>();
+        }
+
+
+
+
+
+
 
         public ClienteModel FindById(int id)
         {
