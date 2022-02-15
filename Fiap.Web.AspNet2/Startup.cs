@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Fiap.Web.AspNet2.Repository.Interface;
+using Fiap.Web.AspNet2.Repository;
 
 namespace Fiap.Web.AspNet2
 {
@@ -30,6 +32,9 @@ namespace Fiap.Web.AspNet2
             services.AddDbContext<DataContext>(option => option.UseSqlServer(connectionString)
                                              .EnableSensitiveDataLogging()
                                              );
+
+
+            services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
 
         }
 

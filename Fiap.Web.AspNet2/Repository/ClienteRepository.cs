@@ -97,15 +97,8 @@ namespace Fiap.Web.AspNet2.Repository
         }
 
 
-
-
-
-
-
         public ClienteModel FindById(int id)
         {
-
-            //var cliente = _context.Clientes.Find(id);
 
             var cliente =
                 _context.Clientes // SELECT campos
@@ -115,28 +108,28 @@ namespace Fiap.Web.AspNet2.Repository
             return cliente;
         }
 
-        public void Insert(ClienteModel ClienteModel)
+        public void Insert(ClienteModel clienteModel)
         {
-            _context.Clientes.Add(ClienteModel);
+            _context.Clientes.Add(clienteModel);
             _context.SaveChanges();
         }
 
-        public void Update(ClienteModel ClienteModel)
+        public void Update(ClienteModel clienteModel)
         {
-            _context.Clientes.Update(ClienteModel);
+            _context.Clientes.Update(clienteModel);
             _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            ClienteModel ClienteModel = new ClienteModel(id, "", "");
-            Delete(ClienteModel);
+            ClienteModel clienteModel = new ClienteModel(id, "", "");
+            Delete(clienteModel);
         }
 
 
-        public void Delete(ClienteModel ClienteModel)
+        public void Delete(ClienteModel clienteModel)
         {
-            _context.Clientes.Remove(ClienteModel);
+            _context.Clientes.Remove(clienteModel);
             _context.SaveChanges();
         }
 

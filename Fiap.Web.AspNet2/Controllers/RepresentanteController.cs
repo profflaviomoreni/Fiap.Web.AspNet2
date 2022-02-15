@@ -1,31 +1,31 @@
 ﻿using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository;
+using Fiap.Web.AspNet2.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace Fiap.Web.AspNet2.Controllers
 {
     public class RepresentanteController : Controller
     {
-        private readonly DataContext _context;
 
-        private readonly RepresentanteRepository repository;
+        private readonly IRepresentanteRepository repository;
 
-        public RepresentanteController(DataContext context)
+        public RepresentanteController(IRepresentanteRepository _representanteRepository)
         {
-            _context = context;
-            repository = new RepresentanteRepository(_context);
+            repository = _representanteRepository;
         }
 
+
+
+        
         public IActionResult Index()
         {
             var listaRepresentantes = repository.FindAll();
             return View(listaRepresentantes);
         }
-
+        
 
         public IActionResult Details(int id)
         {

@@ -1,19 +1,18 @@
 ﻿using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository.Interface;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fiap.Web.AspNet2.Repository
 {
-    public class RepresentanteRepository : IRepresentanteRepository
+    public class RepresentanteTextRepository : IRepresentanteRepository
     {
-
+ 
         public DataContext _context { get; set; }
 
-        public RepresentanteRepository([FromServices] DataContext context)
+        public RepresentanteTextRepository(DataContext context)
         {
             _context = context;
         }
@@ -24,7 +23,8 @@ namespace Fiap.Web.AspNet2.Repository
             return _context.Representantes.ToList<RepresentanteModel>(); ;
         }
 
-        public RepresentanteModel FindById(int id) {
+        public RepresentanteModel FindById(int id)
+        {
             return _context.Representantes.Find(id);
         }
 
@@ -43,7 +43,7 @@ namespace Fiap.Web.AspNet2.Repository
         {
             var representantes = _context
                     .Representantes
-                        .Where( r => r.NomeRepresentante.Contains(nome))
+                        .Where(r => r.NomeRepresentante.Contains(nome))
                             .ToList();
             return representantes;
         }
@@ -73,7 +73,5 @@ namespace Fiap.Web.AspNet2.Repository
             _context.Representantes.Remove(representanteModel);
             _context.SaveChanges();
         }
-
-        
     }
 }
