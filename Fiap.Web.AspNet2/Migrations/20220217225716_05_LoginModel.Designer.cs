@@ -4,14 +4,16 @@ using Fiap.Web.AspNet2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Fiap.Web.AspNet2.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220217225716_05_LoginModel")]
+    partial class _05_LoginModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,33 +49,6 @@ namespace Fiap.Web.AspNet2.Migrations
                     b.HasIndex("RepresentanteId");
 
                     b.ToTable("Cliente");
-                });
-
-            modelBuilder.Entity("Fiap.Web.AspNet2.Models.LoginModel", b =>
-                {
-                    b.Property<int>("LoginId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NomeUsuario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Senha")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Usuario")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("LoginId");
-
-                    b.ToTable("Login");
                 });
 
             modelBuilder.Entity("Fiap.Web.AspNet2.Models.LojaModel", b =>

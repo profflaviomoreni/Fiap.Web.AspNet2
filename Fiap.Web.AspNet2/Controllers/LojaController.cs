@@ -1,5 +1,6 @@
 ﻿using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Repository;
+using Fiap.Web.AspNet2.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Fiap.Web.AspNet2.Controllers
@@ -7,13 +8,11 @@ namespace Fiap.Web.AspNet2.Controllers
     public class LojaController : Controller
     {
 
-        private readonly DataContext context;
-        private readonly LojaRepository lojaRepository;
+        private readonly ILojaRepository lojaRepository;
 
-        public LojaController(DataContext dataContext)
+        public LojaController(ILojaRepository repository)
         {
-            context = dataContext;
-            lojaRepository = new LojaRepository(context);
+            lojaRepository = repository;
         }
 
 

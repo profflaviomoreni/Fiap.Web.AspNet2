@@ -2,12 +2,12 @@
 using Fiap.Web.AspNet2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Fiap.Web.AspNet2.Repository.Interface;
 
 namespace Fiap.Web.AspNet2.Repository
 {
 
-
-    public class LojaRepository
+    public class LojaRepository : ILojaRepository
     {
 
         private readonly DataContext context;

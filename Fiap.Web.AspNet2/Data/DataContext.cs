@@ -26,6 +26,8 @@ namespace Fiap.Web.AspNet2.Data
 
         public DbSet<PaisModel> Paises { get; set; }
 
+        public DbSet<LoginModel> Login { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

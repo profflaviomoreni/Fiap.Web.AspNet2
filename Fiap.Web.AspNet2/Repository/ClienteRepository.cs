@@ -1,84 +1,85 @@
 ﻿using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Models;
+using Fiap.Web.AspNet2.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Fiap.Web.AspNet2.Repository
 {
-    public class ClienteRepository
+    public class ClienteRepository : IClienteRepository
     {
-        public DataContext _context { get; set; }
+        private readonly DataContext context;
 
-        public ClienteRepository(DataContext context)
+        public ClienteRepository(DataContext ctx)
         {
-            _context = context;
+            context = ctx;
         }
 
 
-        public List<ClienteModel> FindAll()
+        public IList<ClienteModel> FindAll()
         {
-            return _context.Clientes.ToList<ClienteModel>();
+            return context.Clientes.ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindAllWithRepresentante()
+        public IList<ClienteModel> FindAllWithRepresentante()
         {
-            var lista = _context.Clientes.Include(c => c.Representante).ToList();
-            return lista;
+            var ILista = context.Clientes.Include(c => c.Representante).ToList();
+            return ILista;
 
         }
 
-        public List<ClienteModel> FindAllOrderByNomeAsc()
+        public IList<ClienteModel> FindAllOrderByNomeAsc()
         {
-            return _context.Clientes.OrderBy( c => c.Nome ).ToList<ClienteModel>();
+            return context.Clientes.OrderBy( c => c.Nome ).ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindAllOrderByNomeDesc()
+        public IList<ClienteModel> FindAllOrderByNomeDesc()
         {
-            return _context.Clientes.OrderByDescending(c => c.Nome).ToList<ClienteModel>();
+            return context.Clientes.OrderByDescending(c => c.Nome).ToList<ClienteModel>();
         }
 
-        public List<ClienteModel> FindByNome(string nome)
+        public IList<ClienteModel> FindByNome(string nome)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.Nome.Contains(nome) )
                     .OrderByDescending(c => c.Nome)
                         .ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindByEmail(string email)
+        public IList<ClienteModel> FindByEmail(string email)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.Email.StartsWith(email))
                     .OrderByDescending(c => c.Nome)
                         .ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindByNomeAndEmail(string nome, string email)
+        public IList<ClienteModel> FindByNomeAndEmail(string nome, string email)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.Nome.Contains(nome) && c.Email.Contains(email) )
                     .OrderByDescending(c => c.Nome)
                         .ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindByNomeAndEmailDinamico(string nome, string email)
+        public IList<ClienteModel> FindByNomeAndEmailDinamico(string nome, string email)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.Nome.Contains(nome) && c.Email.Contains(email))
                     .OrderByDescending(c => c.Nome)
                         .ToList<ClienteModel>();
         }
 
 
-        public List<ClienteModel> FindByNomeAndEmailAndRepresentante(string nome, string email, int? idRepresentante)
+        public IList<ClienteModel> FindByNomeAndEmailAndRepresentante(string nome, string email, int? idRepresentante)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.Nome.Contains(nome) && 
                             c.Email.Contains(email) && 
                             (0 == idRepresentante || c.RepresentanteId == idRepresentante) 
@@ -88,9 +89,9 @@ namespace Fiap.Web.AspNet2.Repository
         }
 
 
-        public List<ClienteModel> FindByRepresentante(int idRepresentante)
+        public IList<ClienteModel> FindByRepresentante(int idRepresentante)
         {
-            return _context.Clientes
+            return context.Clientes
                 .Where(c => c.RepresentanteId == idRepresentante)
                     .OrderByDescending(c => c.Nome)
                         .ToList<ClienteModel>();
@@ -101,7 +102,7 @@ namespace Fiap.Web.AspNet2.Repository
         {
 
             var cliente =
-                _context.Clientes // SELECT campos
+                context.Clientes // SELECT campos
                     .Include(c => c.Representante) // Add campos do Representante e Inner Join
                         .SingleOrDefault(c => c.ClienteId == id); // Where;
 
@@ -110,14 +111,14 @@ namespace Fiap.Web.AspNet2.Repository
 
         public void Insert(ClienteModel clienteModel)
         {
-            _context.Clientes.Add(clienteModel);
-            _context.SaveChanges();
+            context.Clientes.Add(clienteModel);
+            context.SaveChanges();
         }
 
         public void Update(ClienteModel clienteModel)
         {
-            _context.Clientes.Update(clienteModel);
-            _context.SaveChanges();
+            context.Clientes.Update(clienteModel);
+            context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -129,8 +130,8 @@ namespace Fiap.Web.AspNet2.Repository
 
         public void Delete(ClienteModel clienteModel)
         {
-            _context.Clientes.Remove(clienteModel);
-            _context.SaveChanges();
+            context.Clientes.Remove(clienteModel);
+            context.SaveChanges();
         }
 
     }

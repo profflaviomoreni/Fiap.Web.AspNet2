@@ -11,6 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Fiap.Web.AspNet2.Repository.Interface;
 using Fiap.Web.AspNet2.Repository;
+using Fiap.Web.AspNet2.ViewModel;
+using Fiap.Web.AspNet2.Models;
+using AutoMapper;
 
 namespace Fiap.Web.AspNet2
 {
@@ -34,7 +37,16 @@ namespace Fiap.Web.AspNet2
                                              );
 
 
+            var mapperConfig = new AutoMapper.MapperConfiguration(c =>
+            {
+                c.CreateMap<LoginViewModel, LoginModel>();
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<ILojaRepository, LojaRepository>();
 
         }
 

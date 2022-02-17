@@ -1,0 +1,43 @@
+﻿@model Fiap.Web.AspNet2.ViewModel.LoginViewModel
+
+<h4>Login</h4>
+<hr />
+<div class="row">
+    @{
+        String mensagemSucesso = (String)TempData["mensagemSucesso"];
+        if (!String.IsNullOrEmpty(mensagemSucesso))
+        {
+            <div class="alert alert-warning" role="alert">
+                <h4>@mensagemSucesso</h4>
+
+                <p>@Model.NomeUsuario</p>
+                <p>@Model.Token</p>
+
+            </div>
+
+
+        }
+    }
+
+    <div class="col-md-4">
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label"></label>
+                <input asp-for="Senha" type="password" class="form-control" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
