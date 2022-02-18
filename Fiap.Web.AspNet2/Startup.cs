@@ -41,6 +41,15 @@ namespace Fiap.Web.AspNet2
             {
                 c.CreateMap<LoginViewModel, LoginModel>();
                 c.CreateMap<LoginModel, LoginViewModel>();
+
+                c.CreateMap<ClienteViewModel, ClienteModel>();
+                c.CreateMap<ClienteModel, ClienteViewModel>();
+
+                c.CreateMap<IList<RepresentanteViewModel>, IList<RepresentanteModel>>();
+
+                c.CreateMap<IList<ClienteViewModel>, IList<ClienteModel>>();
+                c.CreateMap<IList<ClienteModel>, IList<ClienteViewModel>>();
+
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);

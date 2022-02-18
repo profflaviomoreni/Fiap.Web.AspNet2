@@ -1,6 +1,8 @@
-﻿using Fiap.Web.AspNet2.Models;
+﻿using AutoMapper;
+using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository;
 using Fiap.Web.AspNet2.Repository.Interface;
+using Fiap.Web.AspNet2.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -12,11 +14,14 @@ namespace Fiap.Web.AspNet2.Controllers
 
         private readonly IRepresentanteRepository representanteRepository;
         private readonly IClienteRepository clienteRepository;
+        private readonly IMapper mapper;
 
-        public ClienteController(IRepresentanteRepository representante, IClienteRepository cliente )
+
+        public ClienteController(IRepresentanteRepository representante, IClienteRepository cliente, IMapper mapp )
         {
             representanteRepository = representante;
-            clienteRepository = cliente;            
+            clienteRepository = cliente;
+            mapper = mapp;
         }
 
 
@@ -30,13 +35,32 @@ namespace Fiap.Web.AspNet2.Controllers
             //var listaClientes = clienteRepository.FindByEmail("a");
             //var listaClientes = clienteRepository.FindByNomeAndEmail("na","gmail.com");
             //var listaClientes = clienteRepository.FindByRepresentante(3);
+            //var listaClientes = clienteRepository.FindByNomeAndEmailAndRepresentante("na", ".br", 3);
 
-            var listaClientes = clienteRepository.FindByNomeAndEmailAndRepresentante("na", ".br", 3);
-
-            return View(listaClientes);
+            return View(new ClientePesquisaViewModel());
         }
 
-        [HttpGet]
+
+        [HttpPost]
+        public IActionResult Pesquisar(ClientePesquisaViewModel clientePesquisaViewModel)
+        {
+            var listaClientes = 
+                    clienteRepository
+                        .FindByNomeAndEmailAndRepresentante(
+                            clientePesquisaViewModel.NomePesquisa, 
+                            clientePesquisaViewModel.EmailPesquisa, 
+                            0);
+
+
+            var clientes = mapper.Map<IList<ClienteViewModel>>(listaClientes);
+
+            //clientePesquisaViewModel.Clientes = mapper.Map<IList<ClienteViewModel>>(listaClientes);
+
+            return View("Index", clientePesquisaViewModel);
+        }
+
+
+            [HttpGet]
         public IActionResult Novo()
         {
             var listaRepresentantes = representanteRepository.FindAll();

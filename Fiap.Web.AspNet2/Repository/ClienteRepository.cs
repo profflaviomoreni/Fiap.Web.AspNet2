@@ -123,7 +123,8 @@ namespace Fiap.Web.AspNet2.Repository
 
         public void Delete(int id)
         {
-            ClienteModel clienteModel = new ClienteModel(id, "", "");
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.ClienteId = id;
             Delete(clienteModel);
         }
 

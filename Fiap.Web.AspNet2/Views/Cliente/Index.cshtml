@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ClienteModel>
+﻿@model Fiap.Web.AspNet2.ViewModel.ClientePesquisaViewModel;
 
 @{
     ViewData["Title"] = "Cliente";
@@ -14,20 +14,20 @@
             <p class="toolbar">
                 <a class="create btn btn-dark" href="/Cliente/Novo">Novo Cliente</a>
             </p>
+            <form asp-action="Pesquisar">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="control-label">Pesquisar o Nome</label>
+                        <input class="form-control col-5" asp-for="NomePesquisa" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Pesquisar Email</label>
+                        <input class="form-control col-5" asp-for="EmailPesquisa"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
 
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label class="control-label">Nome</label>
-                    <input class="form-control col-5"/>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <input class="form-control col-5" />
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
-
-            </div>
-
+            </form>
 
             @{ 
                 String msg = (String)TempData["MensagemSucesso"];
@@ -49,10 +49,6 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var cliente in Model)
-                    {
-                        <partial name="_ClienteItem" model="cliente" />
-                    }
 
                 </tbody>
             </table>
