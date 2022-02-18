@@ -40,9 +40,11 @@ namespace Fiap.Web.AspNet2
             var mapperConfig = new AutoMapper.MapperConfiguration(c =>
             {
                 c.CreateMap<LoginViewModel, LoginModel>();
+                c.CreateMap<LoginModel, LoginViewModel>();
             });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
+
 
             services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
