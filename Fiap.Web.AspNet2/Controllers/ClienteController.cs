@@ -51,10 +51,7 @@ namespace Fiap.Web.AspNet2.Controllers
                             clientePesquisaViewModel.EmailPesquisa, 
                             0);
 
-
-            var clientes = mapper.Map<IList<ClienteViewModel>>(listaClientes);
-
-            //clientePesquisaViewModel.Clientes = mapper.Map<IList<ClienteViewModel>>(listaClientes);
+            clientePesquisaViewModel.Clientes = mapper.Map<IList<ClienteViewModel>>(listaClientes);
 
             return View("Index", clientePesquisaViewModel);
         }

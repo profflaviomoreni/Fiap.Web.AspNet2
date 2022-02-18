@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Fiap.Web.AspNet2.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -27,5 +28,7 @@ namespace Fiap.Web.AspNet2.ViewModel
 
         [Display(Name = "Representante")]
         public int RepresentanteId { get; set; }
+
+        public RepresentanteModel Representante { get; set; }
     }
 }

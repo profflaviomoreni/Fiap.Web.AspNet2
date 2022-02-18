@@ -39,16 +39,28 @@ namespace Fiap.Web.AspNet2
 
             var mapperConfig = new AutoMapper.MapperConfiguration(c =>
             {
+                c.AllowNullCollections = true;
+
                 c.CreateMap<LoginViewModel, LoginModel>();
                 c.CreateMap<LoginModel, LoginViewModel>();
 
-                c.CreateMap<ClienteViewModel, ClienteModel>();
-                c.CreateMap<ClienteModel, ClienteViewModel>();
+
+
+                c.CreateMap<RepresentanteViewModel, RepresentanteModel>();
+
+                c.CreateMap<RepresentanteModel, RepresentanteViewModel>()
+                    .ForMember(v => v.RepresentanteId, m => m.MapFrom(x => x.RepresentanteId))
+                    .ForMember(v => v.NomeRepresentante, m => m.MapFrom(x => x.RepresentanteId))
+                    .ForMember(v => v.Clientes, m => m.MapFrom(x => x.Clientes));
 
                 c.CreateMap<IList<RepresentanteViewModel>, IList<RepresentanteModel>>();
 
+
+                c.CreateMap<ClienteViewModel, ClienteModel>();
+                c.CreateMap<ClienteModel, ClienteViewModel>()
+                    .ForMember( c=> c.Representante, opt => opt.Ignore()) ;
+
                 c.CreateMap<IList<ClienteViewModel>, IList<ClienteModel>>();
-                c.CreateMap<IList<ClienteModel>, IList<ClienteViewModel>>();
 
             });
             IMapper mapper = mapperConfig.CreateMapper();

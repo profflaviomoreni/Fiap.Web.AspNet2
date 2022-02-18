@@ -1,9 +1,12 @@
-﻿using Fiap.Web.AspNet2.Data;
+﻿using AutoMapper;
+using Fiap.Web.AspNet2.Data;
 using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository;
 using Fiap.Web.AspNet2.Repository.Interface;
+using Fiap.Web.AspNet2.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace Fiap.Web.AspNet2.Controllers
 {
@@ -11,10 +14,12 @@ namespace Fiap.Web.AspNet2.Controllers
     {
 
         private readonly IRepresentanteRepository repository;
+        private readonly IMapper mapper;
 
-        public RepresentanteController(IRepresentanteRepository _representanteRepository)
+        public RepresentanteController(IRepresentanteRepository _representanteRepository, IMapper _mapper)
         {
             repository = _representanteRepository;
+            mapper = _mapper;
         }
 
 
@@ -22,6 +27,8 @@ namespace Fiap.Web.AspNet2.Controllers
         
         public IActionResult Index()
         {
+            var representantes = mapper.Map<IList<RepresentanteViewModel>>(repository.FindAll());
+
             var listaRepresentantes = repository.FindAll();
             return View(listaRepresentantes);
         }

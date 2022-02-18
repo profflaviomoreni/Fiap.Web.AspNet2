@@ -14,45 +14,51 @@
             <p class="toolbar">
                 <a class="create btn btn-dark" href="/Cliente/Novo">Novo Cliente</a>
             </p>
-            <form asp-action="Pesquisar">
-                <div class="col-md-8">
+            <div class="jumbotron">
+                <form asp-action="Pesquisar" class="form-inline">
                     <div class="form-group">
                         <label class="control-label">Pesquisar o Nome</label>
                         <input class="form-control col-5" asp-for="NomePesquisa" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">Pesquisar Email</label>
-                        <input class="form-control col-5" asp-for="EmailPesquisa"/>
+                        <input class="form-control col-5" asp-for="EmailPesquisa" />
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+                </form>
+            </div>
 
-                </div>
-            </form>
-
-            @{ 
-                String msg = (String)TempData["MensagemSucesso"];
-                if (!String.IsNullOrEmpty(msg)) {
-                <div class="alert alert-warning" role="alert">
-                    <h4>@msg</h4>
-                </div>
+                @{
+                    String msg = (String)TempData["MensagemSucesso"];
+                    if (!String.IsNullOrEmpty(msg))
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            <h4>@msg</h4>
+                        </div>
+                    }
                 }
-            }
-            
-
-            <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
-                <thead>
-                    <tr>
-                        <th data-field="id">Id</th>
-                        <th data-field="name">Nome</th>
-                        <th class="actions" width="220">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
 
 
-                </tbody>
-            </table>
+                @if ((Model.Clientes != null))
+                {
+                    <table class="table table-striped" border="1" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                <th data-field="id">Id</th>
+                                <th data-field="name">Nome</th>
+                                <th class="actions" width="220">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                            @foreach (var cliente in Model.Clientes)
+                            {
+                                <partial name="_ClienteItem" model="cliente" />
+                            }
+
+                        </tbody>
+                    </table>
+                }
+            </div>
         </div>
-    </div>
 </div>
