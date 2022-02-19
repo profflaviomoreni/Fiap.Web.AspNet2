@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Fiap.Web.AspNet2.Controllers.Filters;
 using Fiap.Web.AspNet2.Models;
 using Fiap.Web.AspNet2.Repository;
 using Fiap.Web.AspNet2.Repository.Interface;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Fiap.Web.AspNet2.Controllers
 {
+    [FiapAuthFilter]
     public class ClienteController : Controller
     {
 
@@ -57,7 +59,7 @@ namespace Fiap.Web.AspNet2.Controllers
         }
 
 
-            [HttpGet]
+        [HttpGet]
         public IActionResult Novo()
         {
             var listaRepresentantes = representanteRepository.FindAll();

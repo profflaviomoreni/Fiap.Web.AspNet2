@@ -14,6 +14,7 @@ using Fiap.Web.AspNet2.Repository;
 using Fiap.Web.AspNet2.ViewModel;
 using Fiap.Web.AspNet2.Models;
 using AutoMapper;
+using Fiap.Web.AspNet2.Controllers.Filters;
 
 namespace Fiap.Web.AspNet2
 {
@@ -29,12 +30,19 @@ namespace Fiap.Web.AspNet2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews( options =>
+            {
+                options.Filters.Add<FiapLogFilter>();
+            });
+
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
 
             var connectionString = Configuration.GetConnectionString("databaseUrl");
-            services.AddDbContext<DataContext>(option => option.UseSqlServer(connectionString)
-                                             .EnableSensitiveDataLogging()
-                                             );
+            services.AddDbContext<DataContext>(
+                option => option.UseSqlServer(connectionString).EnableSensitiveDataLogging()
+            );
 
 
             var mapperConfig = new AutoMapper.MapperConfiguration(c =>
@@ -111,6 +119,8 @@ namespace Fiap.Web.AspNet2
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
