@@ -69,6 +69,7 @@ namespace Fiap.Web.AspNet2
                 c.CreateMap<ProdutoViewModel, ProdutoModel>()
                     .ForMember(p => p.ProdutosLojas, opt => opt.Ignore());
                 c.CreateMap<ProdutoModel, ProdutoViewModel>();
+                c.CreateMap<IList<ProdutoViewModel> , IList<ProdutoModel>> ();
 
 
                 //Loja
@@ -76,6 +77,11 @@ namespace Fiap.Web.AspNet2
                     .ForMember(l => l.ProdutosLojas, opt => opt.Ignore());
                 c.CreateMap<LojaModel, LojaViewModel>();
 
+
+
+                //ProdutoLoja
+                c.CreateMap<ProdutoLojaViewModel, ProdutoModel>()
+                    .ForMember(p => p.ProdutosLojas, opt => opt.Ignore());
 
             });
             IMapper mapper = mapperConfig.CreateMapper();
@@ -85,6 +91,7 @@ namespace Fiap.Web.AspNet2
             services.AddScoped<IRepresentanteRepository, RepresentanteRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ILojaRepository, LojaRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
         }
 

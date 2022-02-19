@@ -3,6 +3,7 @@ using Fiap.Web.AspNet2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Fiap.Web.AspNet2.Repository.Interface;
+using System.Collections.Generic;
 
 namespace Fiap.Web.AspNet2.Repository
 {
@@ -17,6 +18,11 @@ namespace Fiap.Web.AspNet2.Repository
             context = dataContext;
         }
 
+        public IList<LojaModel> FindAll()
+        {
+            return context.Lojas.ToList();
+        }
+
         public LojaModel FindById(int id)
         {
             return context.Lojas // SELECT FROM tabela
@@ -24,6 +30,7 @@ namespace Fiap.Web.AspNet2.Repository
                         .ThenInclude( pl => pl.Produto) // INNER JOIN -- Detalhes do Produto
                             .SingleOrDefault( l => l.LojaId == id); // WHERE 
         }
+
 
 
     }
