@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Web.AspNet2", "Fiap.Web.AspNet2\Fiap.Web.AspNet2.csproj", "{BD447BA4-27BA-4FBC-9156-38B4F6D7340F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Web.AspNet2", "Fiap.Web.AspNet2\Fiap.Web.AspNet2.csproj", "{BD447BA4-27BA-4FBC-9156-38B4F6D7340F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Web.AspNet2Test", "Fiap.Web.AspNet2Test\Fiap.Web.AspNet2Test.csproj", "{03BF74DA-690E-4502-8DF1-3B439D8BCB14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BD447BA4-27BA-4FBC-9156-38B4F6D7340F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD447BA4-27BA-4FBC-9156-38B4F6D7340F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD447BA4-27BA-4FBC-9156-38B4F6D7340F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03BF74DA-690E-4502-8DF1-3B439D8BCB14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BF74DA-690E-4502-8DF1-3B439D8BCB14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BF74DA-690E-4502-8DF1-3B439D8BCB14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BF74DA-690E-4502-8DF1-3B439D8BCB14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

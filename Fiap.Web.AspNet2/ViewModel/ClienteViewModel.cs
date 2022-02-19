@@ -29,6 +29,5 @@ namespace Fiap.Web.AspNet2.ViewModel
         [Display(Name = "Representante")]
         public int RepresentanteId { get; set; }
 
-        public RepresentanteModel Representante { get; set; }
     }
 }

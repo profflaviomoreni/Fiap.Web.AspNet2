@@ -56,9 +56,11 @@ namespace Fiap.Web.AspNet2
                 c.CreateMap<IList<RepresentanteViewModel>, IList<RepresentanteModel>>();
 
 
-                c.CreateMap<ClienteViewModel, ClienteModel>();
-                c.CreateMap<ClienteModel, ClienteViewModel>()
-                    .ForMember( c=> c.Representante, opt => opt.Ignore()) ;
+                c.CreateMap<ClienteViewModel, ClienteModel>()
+                    .ForMember(c => c.Representante, opt => opt.Ignore());
+
+                c.CreateMap<ClienteModel, ClienteViewModel>();
+                    //.ForMember( c=> c.Representante, opt => opt.Ignore()) ;
 
                 c.CreateMap<IList<ClienteViewModel>, IList<ClienteModel>>();
 
