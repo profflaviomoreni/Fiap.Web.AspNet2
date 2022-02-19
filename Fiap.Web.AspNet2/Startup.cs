@@ -41,11 +41,12 @@ namespace Fiap.Web.AspNet2
             {
                 c.AllowNullCollections = true;
 
+                // Login
                 c.CreateMap<LoginViewModel, LoginModel>();
                 c.CreateMap<LoginModel, LoginViewModel>();
 
 
-
+                // Representante
                 c.CreateMap<RepresentanteViewModel, RepresentanteModel>();
 
                 c.CreateMap<RepresentanteModel, RepresentanteViewModel>()
@@ -56,13 +57,25 @@ namespace Fiap.Web.AspNet2
                 c.CreateMap<IList<RepresentanteViewModel>, IList<RepresentanteModel>>();
 
 
+                // Cliente
                 c.CreateMap<ClienteViewModel, ClienteModel>()
                     .ForMember(c => c.Representante, opt => opt.Ignore());
 
                 c.CreateMap<ClienteModel, ClienteViewModel>();
-                    //.ForMember( c=> c.Representante, opt => opt.Ignore()) ;
-
                 c.CreateMap<IList<ClienteViewModel>, IList<ClienteModel>>();
+
+
+                //Produto
+                c.CreateMap<ProdutoViewModel, ProdutoModel>()
+                    .ForMember(p => p.ProdutosLojas, opt => opt.Ignore());
+                c.CreateMap<ProdutoModel, ProdutoViewModel>();
+
+
+                //Loja
+                c.CreateMap<LojaViewModel, LojaModel>()
+                    .ForMember(l => l.ProdutosLojas, opt => opt.Ignore());
+                c.CreateMap<LojaModel, LojaViewModel>();
+
 
             });
             IMapper mapper = mapperConfig.CreateMapper();
